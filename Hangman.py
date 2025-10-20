@@ -1,6 +1,7 @@
 import getpass
 import re
 
+# Collect Secret Word
 secret_input = getpass.getpass("Enter the secret word: ")
 secret_word = ""
 validator = 0
@@ -11,7 +12,7 @@ hidden_word = []
 hangmen= ["*********\n \n     O    \n    /|\     \n    / \    \n \n*********", "*********\n \n     O    \n    /|\     \n    /     \n \n*********", "*********\n \n     O    \n    /|\     \n \n \n*********", "*********\n \n     O    \n    /|     \n \n \n*********", "*********\n \n    O     \n    |     \n \n \n*********", "*********\n \n    O     \n \n \n \n*********","*********\n \n \n \n \n \n *********"]
 
 
-
+# Filter out secret word inputs with numbers or symbols
 while validator == 0:
     if re.search(r"[^A-Za-z]", secret_input):
         print("Your word can only have letters!")
@@ -29,7 +30,8 @@ while game == 0:
     validator = 0
     while validator == 0:
         guess_input = input("Guess a Letter:")
-
+        
+        # Filter out guesses that are numbers or symbols, more than one letter, or letters that have already been guessed
         if re.search(r"[^A-Za-z]", guess_input):
             print("You can only guess letters!")
         else:
@@ -45,7 +47,8 @@ while game == 0:
                     guessed_letters.append(guess)
                     print("Guessed Letters: ", " , ".join(guessed_letters))
                     validator += 1
-
+                    
+                    # Checks if letter is in secret word
                     for i in range(len(secret_word)):
                         if secret_word[i] == guess:
                             hidden_word[i * 2] = guess
@@ -59,6 +62,7 @@ while game == 0:
                         print(hangmen[lives])
                     print("".join(hidden_word))
 
+                    # Winning or losing condition
                     if "_" not in hidden_word:
                         print("\n Congratulations! You guessed the word correctly!")
                         print(f"The secret word was '{secret_word.upper()}'")
@@ -75,3 +79,4 @@ while game == 0:
 
 
  
+
