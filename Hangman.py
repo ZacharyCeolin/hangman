@@ -14,7 +14,7 @@ hangmen= ["*********\n \n     O    \n    /|\     \n    / \    \n \n*********", "
 
 while validator == 0:
     if re.search(r"[^A-Za-z]", secret_input):
-        print("Your word can only have letter!")
+        print("Your word can only have letters!")
     else:
         print("Word Accepted!")
         secret_word = secret_input.lower()
@@ -70,6 +70,7 @@ while game == 0:
                         print(f"The secret word was '{secret_word.upper()}'")
                         game = 1
                         break
+
 
 
 
