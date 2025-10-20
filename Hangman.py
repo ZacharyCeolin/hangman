@@ -8,6 +8,8 @@ game = 0
 lives = 6
 guessed_letters = []
 hidden_word = []
+hangmen= ["*********\n \n     O    \n    /|\     \n    / \    \n \n*********", "*********\n \n     O    \n    /|\     \n    /     \n \n*********", "*********\n \n     O    \n    /|\     \n \n \n*********", "*********\n \n     O    \n    /|     \n \n \n*********", "*********\n \n    O     \n    |     \n \n \n*********", "*********\n \n    O     \n \n \n \n*********","*********\n \n \n \n \n \n *********"]
+
 
 
 while validator == 0:
@@ -18,12 +20,10 @@ while validator == 0:
         secret_word = secret_input.lower()
         validator += 1
 
-
 for i in range(len(secret_word)):
     hidden_word.append("_")
     hidden_word.append(" ")
 print("".join(hidden_word))
-    
 
 while game == 0:
     validator = 0
@@ -34,27 +34,43 @@ while game == 0:
             print("You can only guess letters!")
         else:
             if len(guess_input) > 1:
-                print("You can only guess one letter at a time!") 
+                print("You can only guess one letter at a time!")
             elif len(guess_input) == 0:
-                print("You have to guess a letter!") 
-            else: 
-                if guess_input.lower()in guessed_letters:
+                print("You have to guess a letter!")
+            else:
+                if guess_input.lower() in guessed_letters:
                     print(f"{guess_input} has already been guessed.")
                 else:
                     guess = guess_input.lower()
                     guessed_letters.append(guess)
-                    print(guessed_letters)
+                    print("Guessed Letters: ", " , ".join(guessed_letters))
                     validator += 1
-    
+
                     for i in range(len(secret_word)):
                         if secret_word[i] == guess:
-                            hidden_word[i*2] = guess
+                            hidden_word[i * 2] = guess
                     if guess in secret_word:
                         print(f"There is a {guess.upper()} in the secret word")
+                        print(hangmen[lives])
                     else:
                         print(f"There is no {guess.upper()} in the secret word")
                         lives -= 1
+                        print(f"Lives remaining : {lives}")
+                        print(hangmen[lives])
                     print("".join(hidden_word))
 
+                    if "_" not in hidden_word:
+                        print("\n Congratulations! You guessed the word correctly!")
+                        print(f"The secret word was '{secret_word.upper()}'")
+                        game = 1
+                        break
+
+                    if lives == 0:
+                        print("\n Game Over! You ran out of lives.")
+                        print(f"The secret word was '{secret_word.upper()}'")
+                        game = 1
+                        break
 
 
+
+ 
